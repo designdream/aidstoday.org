@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Our Staff — Global AIDS News Today</title>
+<style>
+:root{--bg:#faf9f7;--ink:#1a1a1a;--muted:#555;--accent:#b3261e}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Georgia,'Times New Roman',serif;line-height:1.6}
+.wrap{max-width:1000px;margin:0 auto;padding:56px 24px}
+h1{font-size:34px;margin:0 0 8px}
+.sub{color:var(--muted);margin:0 0 40px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:36px}
+.card{text-align:center;opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.card.in{opacity:1;transform:none}
+.photo{width:150px;height:150px;border-radius:50%;margin:0 auto;overflow:hidden;cursor:pointer;border:3px solid transparent;transition:border-color .3s,transform .3s;box-shadow:0 6px 18px rgba(0,0,0,.12)}
+.photo img{width:100%;height:100%;object-fit:cover;filter:grayscale(100%);transition:filter .5s ease}
+.photo:hover{border-color:var(--accent);transform:translateY(-4px)}
+.photo:hover img{filter:grayscale(0)}
+.name{font-weight:bold;margin:14px 0 2px}
+.role{color:var(--accent);font-size:13px;font-family:system-ui,sans-serif}
+.hint{font-size:11px;color:#999;font-family:system-ui,sans-serif}
+.bio{max-height:0;overflow:hidden;opacity:0;transition:max-height .5s ease,opacity .4s ease;font-size:14px;color:var(--muted);text-align:left;font-family:system-ui,sans-serif}
+.card.open .bio{max-height:400px;opacity:1;margin-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>About our staff</h1>
+<p class="sub">Hover to bring each portrait to life — click to read more.</p>
+<div class="grid" id="g"></div>
+</div>
+<script>
+var staff=[
+{n:"David Miller",r:"Treatment Activist & Journalist",img:"staff/david.jpg",b:"An AIDS treatment activist and journalist focused on HIV aging, coinfections, emerging therapies, and policy. A veteran of ACT UP New York."},
+{n:"Roberto Antonacci, M.D.",r:"Radiation Oncologist",img:"staff/roberto.jpg",b:"Board Certified Radiation Oncologist and HIV advocate. Co-Chair of the New York Medical Cannabis Industry Association (MCIA)."},
+{n:"Alexandra B. Perkins, M.D.",r:"Diagnostic Radiology & Integrative Medicine",img:"staff/alexandra.jpg",b:"Dual Board Certified in Diagnostic Radiology and Integrative Medicine; clinical leader in women's health and population-based screening."},
+{n:"Felipe Recalde",r:"Global Health Advocate",img:"staff/felipe.jpg",b:"Global health advocate focused on health equity, international policy, patient engagement, and access to evidence-based care."},
+{n:"Frank Maresca",r:"Board Member, Health People",img:"staff/frank.jpg",b:"Longtime AIDS advocate focused on the economic dynamics of contemporary health disparities."}
+];
+var g=document.getElementById("g");
+staff.forEach(function(s){
+var c=document.createElement("div");
+c.className="card";
+c.innerHTML='<div class="photo"><img src="'+s.img+'" alt="'+s.n+'"></div><div class="name">'+s.n+'</div><div class="role">'+s.r+'</div><div class="hint">click to expand</div><div class="bio">'+s.b+'</div>';
+c.querySelector(".photo").addEventListener("click",function(){c.classList.toggle("open")});
+g.appendChild(c);
+});
+var io=new IntersectionObserver(function(e){e.forEach(function(x){if(x.isIntersecting)x.target.classList.add("in")})},{threshold:.15});
+var cards=document.querySelectorAll(".card");
+cards.forEach(function(c,i){c.style.transitionDelay=(i*.1)+"s";io.observe(c)});
+</script>
+</body>
+</html>
